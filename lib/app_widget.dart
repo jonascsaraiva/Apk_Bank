@@ -3,6 +3,8 @@ import 'package:teste_1/settings.dart';
 import 'package:teste_1/home_page.dart';
 import 'package:teste_1/login_page.dart';
 import 'package:teste_1/register.dart';
+import 'package:teste_1/list_pages.dart/conversor_page.dart';
+import 'package:teste_1/list_pages.dart/counter_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -34,6 +36,8 @@ class AppWidget extends StatelessWidget {
             '/home': (context) => const HomePage(),
             '/register': (context) => const Register(),
             '/settings': (context) => const Settings(),
+            '/contador': (context) => const ContadorPage(),
+            '/conversor': (context) => const ConversorPage(),
           },
         );
       },
