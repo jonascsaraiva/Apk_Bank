@@ -1,16 +1,48 @@
-# teste_1
+Apk_Bank
 
-A new Flutter project.
+Apk_Bank é um projeto desenvolvido com Flutter que visa criar um aplicativo bancário moderno e funcional. Este repositório serve como um ponto de partida para desenvolvedores interessados em construir aplicativos bancários ou financeiros utilizando o framework Flutter.
 
-## Getting Started
+Funcionalidades
+Interface de usuário moderna: Design limpo e intuitivo para uma experiência de usuário agradável.
 
-This project is a starting point for a Flutter application.
+Navegação fluida: Transições suaves entre as telas utilizando o PageView para navegação por gestos.
 
-A few resources to get you started if this is your first Flutter project:
+Gerenciamento de estado: Utilização do StatefulWidget para gerenciar o estado da aplicação de forma eficiente.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Design responsivo: Layout adaptável para diferentes tamanhos de tela, proporcionando uma experiência consistente em dispositivos móveis.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Tecnologias Utilizadas
+Flutter: Framework UI da Google para construção de interfaces nativas compiladas.
+
+Dart: Linguagem de programação utilizada no desenvolvimento do Flutter.
+
+PageView: Widget do Flutter para navegação entre páginas com suporte a gestos.
+
+Como Executar o Projeto
+Clone este repositório:
+git clone https://github.com/jonascsaraiva/Apk_Bank.git
+
+Navegue até o diretório do projeto:
+cd Apk_Bank
+
+Instale as dependências:
+flutter pub get
+
+Execute o aplicativo:
+flutter run
+
+Contribuições
+Contribuições são bem-vindas! Se você deseja melhorar este projeto, siga os passos abaixo:
+
+Faça um fork deste repositório.
+
+Crie uma branch para sua feature (git checkout -b feature/nome-da-feature).
+
+Faça commit das suas alterações (git commit -am 'Adiciona nova feature').
+
+Envie para o repositório remoto (git push origin feature/nome-da-feature).
+
+Abra um Pull Request.
+
+Licença
+Este projeto está licenciado sob a Licença MIT
