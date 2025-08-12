@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste_1/list_pages.dart/moedas_page.dart';
 import 'package:teste_1/settings.dart';
 import 'package:teste_1/home_page.dart';
 import 'package:teste_1/login_page.dart';
@@ -20,6 +21,8 @@ class AppWidget extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (context, currentMode, child) {
         return MaterialApp(
+          title: 'AppBank',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.light,
             iconTheme: IconThemeData(color: Colors.white),
@@ -38,6 +41,7 @@ class AppWidget extends StatelessWidget {
             '/settings': (context) => const Settings(),
             '/contador': (context) => const ContadorPage(),
             '/conversor': (context) => const ConversorPage(),
+            '/moedas_page': (context) => MoedasPage(),
           },
         );
       },

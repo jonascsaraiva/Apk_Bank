@@ -48,97 +48,102 @@ class _ConversorPageState extends State<ConversorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.only(top: 80.0, left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/logo - Copia.png',
-              fit: BoxFit.contain,
-              width: 170,
-              height: 170,
-            ),
-            const SizedBox(height: 40),
 
-            // Valor e moeda de origem
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: DropdownButtonFormField<String>(
-                    value: _fromCurrency,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    items: _currencyNames
-                        .map(
-                          (name) =>
-                              DropdownMenuItem(value: name, child: Text(name)),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _fromCurrency = value!;
-                      });
-                    },
+        children: [
+          Image.asset(
+            'assets/logo - Copia.png',
+            fit: BoxFit.contain,
+            width: 170,
+            height: 170,
+          ),
+          const SizedBox(height: 40),
+
+          // Valor e moeda de origem
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: DropdownButtonFormField<String>(
+                  value: _fromCurrency,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _currencyNames
+                      .map(
+                        (name) =>
+                            DropdownMenuItem(value: name, child: Text(name)),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _fromCurrency = value!;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 2,
+                child: TextField(
+                  controller: _controller.fromText,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Valor',
+                    border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 2,
-                  child: TextField(
-                    controller: _controller.fromText,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Valor',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+
+          // Moeda destino
+          DropdownButtonFormField<String>(
+            value: _toCurrency,
+            decoration: const InputDecoration(
+              labelText: 'Converter para',
+              border: OutlineInputBorder(),
+            ),
+            items: _currencyNames
+                .map((name) => DropdownMenuItem(value: name, child: Text(name)))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _toCurrency = value!;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+
+          // Resultado
+          Text(
+            _resultText,
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          // Botão
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 15, 68, 124),
+              ),
+              onPressed: _convert,
+              child: const Text(
+                "Converter",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 20,
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // Moeda destino
-            DropdownButtonFormField<String>(
-              value: _toCurrency,
-              decoration: const InputDecoration(
-                labelText: 'Converter para',
-                border: OutlineInputBorder(),
-              ),
-              items: _currencyNames
-                  .map(
-                    (name) => DropdownMenuItem(value: name, child: Text(name)),
-                  )
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  _toCurrency = value!;
-                });
-              },
-            ),
-            const SizedBox(height: 40),
-
-            // Botão
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: _convert,
-                child: const Text("Converter", style: TextStyle(fontSize: 20)),
               ),
             ),
-            const SizedBox(height: 30),
-
-            // Resultado
-            Text(
-              _resultText,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

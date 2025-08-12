@@ -46,13 +46,13 @@ class _ContadorPageState extends State<ContadorPage> {
                   });
                 },
                 child: Text(
-                  'Plus',
+                  'Adicionar',
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
               ),
             ),
           ),
-          SizedBox(height: 50), //Espaçamento vertical(margin)
+          SizedBox(height: 20), //Espaçamento vertical(margin)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
 
@@ -68,10 +68,7 @@ class _ContadorPageState extends State<ContadorPage> {
               ),
               SizedBox(width: 20),
               Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.green,
-                ),
+                decoration: BoxDecoration(color: Colors.green),
                 width: 50,
                 height: 50,
               ),

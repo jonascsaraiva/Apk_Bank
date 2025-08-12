@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
+import 'package:teste_1/list_pages.dart/moedas_page.dart';
 import 'package:teste_1/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,13 +12,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; //Indice onde é escolhida a pagina
   int counter = 0;
+  late PageController _pageController;
 
-  // Troca as telas que serão exibidas
-  final List<Widget> _pages = const [ContadorPage(), ConversorPage()];
+  // Telas que serão exibidas pelo Navegador do fundo
+  List<Widget> get _pages => [ContadorPage(), ConversorPage(), MoedasPage()];
+
+  // Títulos correspondentes que serão exibidas no titulo
+  final List<String> _titles = ['Contador', 'Conversor', 'Moedas'];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInCirc, //Troca o tipo de slider
+    );
+  }
+
+  void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -27,8 +55,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Home Page',
+        title: Text(
+          _titles[_selectedIndex],
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
@@ -68,16 +96,30 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      body: _pages[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        children: _pages,
+        onPageChanged: _onPageChanged,
+      ),
 
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Contador'),
-          BottomNavigationBarItem(icon: Icon(Icons.money), label: 'Conversor'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.plus_one),
+            label: 'Contador',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monetization_on),
+            label: 'Conversor',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money_outlined),
+            label: 'Moedas',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[800],
-        onTap: _onItemTapped,
+        onTap: _onItemTapped, // Onde faz a animação da pagina lá no controller
       ),
     );
   }
