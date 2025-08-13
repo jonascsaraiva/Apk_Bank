@@ -25,11 +25,10 @@ class _MyWidgetState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // mantém o resto branco
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // Cabeçalho com gradiente até a status bar
+          // Cabeçalho com gradiente
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -130,10 +129,7 @@ class _MyWidgetState extends State<LoginPage> {
                   onTap: () => Navigator.of(context).pushNamed('/register'),
                   child: const Text(
                     'New user? Register here',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 1, 46, 95),
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],

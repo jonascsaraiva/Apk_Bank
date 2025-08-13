@@ -55,11 +55,10 @@ class _ContadorPageState extends State<ContadorPage> {
           SizedBox(height: 20), //Espaçamento vertical(margin)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: 10,
+                height: 10,
 
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -68,9 +67,13 @@ class _ContadorPageState extends State<ContadorPage> {
               ),
               SizedBox(width: 20),
               Container(
-                decoration: BoxDecoration(color: Colors.green),
-                width: 50,
-                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.green,
+                ),
+
+                width: 10,
+                height: 10,
               ),
               SizedBox(width: 20),
               Container(
@@ -78,30 +81,13 @@ class _ContadorPageState extends State<ContadorPage> {
                   borderRadius: BorderRadius.circular(50),
                   color: Colors.blue,
                 ),
-                width: 50,
-                height: 50,
+                width: 10,
+                height: 10,
               ),
             ],
           ),
+
           //Espaçamento vertical(margin)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-            children: [
-              Padding(padding: EdgeInsets.only(bottom: 20)),
-
-              Container(
-                width: 50,
-                height: 50,
-
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: const Color.fromARGB(255, 251, 255, 0),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 50),
         ],
       ),
     );

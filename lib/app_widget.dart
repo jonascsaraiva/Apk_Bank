@@ -1,50 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:teste_1/configs/theme_settings.dart';
+import 'package:teste_1/list_pages.dart/favoritas_page.dart';
 import 'package:teste_1/list_pages.dart/moedas_page.dart';
-import 'package:teste_1/settings.dart';
-import 'package:teste_1/home_page.dart';
-import 'package:teste_1/login_page.dart';
-import 'package:teste_1/register.dart';
+import 'package:teste_1/list_pages.dart/login_page.dart';
+import 'package:teste_1/list_pages.dart/register.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
+import 'package:teste_1/home_page.dart';
+import 'package:teste_1/configs/settings.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
-  // Notifier global para o tema
-  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(
-    ThemeMode.light,
-  );
-
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<ThemeMode>(
-      valueListenable: themeNotifier,
-      builder: (context, currentMode, child) {
-        return MaterialApp(
-          title: 'AppBank',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            iconTheme: IconThemeData(color: Colors.white),
-            fontFamily: 'PlayfairDisplay',
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            iconTheme: IconThemeData(color: Colors.white),
-            fontFamily: 'PlayfairDisplay',
-          ),
-          themeMode: currentMode,
-          routes: {
-            '/': (context) => const LoginPage(),
-            '/home': (context) => const HomePage(),
-            '/register': (context) => const Register(),
-            '/settings': (context) => const Settings(),
-            '/contador': (context) => const ContadorPage(),
-            '/conversor': (context) => const ConversorPage(),
-            '/moedas_page': (context) => MoedasPage(),
-          },
-        );
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ThemeSettings(),
+      child: Consumer<ThemeSettings>(
+        builder: (context, themeSettings, _) {
+          return MaterialApp(
+            title: 'AppBank',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              iconTheme: const IconThemeData(
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              fontFamily: 'PlayfairDisplay',
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              iconTheme: const IconThemeData(color: Colors.white),
+              fontFamily: 'PlayfairDisplay',
+            ),
+            themeMode: themeSettings.isDark ? ThemeMode.dark : ThemeMode.light,
+            routes: {
+              '/': (context) => const LoginPage(),
+              '/home': (context) => const HomePage(),
+              '/register': (context) => const Register(),
+              '/settings': (context) =>
+                  Settings(), // pega ThemeSettings via Provider
+              '/contador': (context) => const ContadorPage(),
+              '/conversor': (context) => const ConversorPage(),
+              '/moedas_page': (context) => MoedasPage(),
+              '/favoritas_page.dart': (context) => FavoritasPage(),
+            },
+          );
+        },
+      ),
     );
   }
 }

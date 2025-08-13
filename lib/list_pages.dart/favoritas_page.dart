@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:teste_1/repositories/favoritas_repository.dart';
+import 'package:provider/provider.dart';
+import 'package:teste_1/widgets/moeda_card.dart';
 
 class FavoritasPage extends StatefulWidget {
-  const FavoritasPage({super.key});
-
+  FavoritasPage({Key? key}) : super(key: key);
   @override
-  State<FavoritasPage> createState() => FavoritasPageState();
+  _FavoritasPageState createState() => _FavoritasPageState();
 }
 
-class FavoritasPageState extends State<FavoritasPage> {
+class _FavoritasPageState extends State<FavoritasPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text('Moedas favoritas')));
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.all(12.0),
+        child: Consumer<FavoritasRepository>(
+          builder: (context, favoritas, child) {
+            return favoritas.lista.isEmpty
+                ? ListTile(
+                    leading: Icon(Icons.star),
+                    title: Text('Ainda não há moedas favoritas'),
+                  )
+                : ListView.builder(
+                    itemCount: favoritas.lista.length,
+                    itemBuilder: (_, index) {
+                      return MoedaCard(moeda: favoritas.lista[index]);
+                    },
+                  );
+          },
+        ),
+      ),
+    );
   }
 }
