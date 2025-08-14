@@ -23,15 +23,10 @@ class _HomePageState extends State<HomePage> {
   late Map<String, String> loc;
 
   // Telas que serão exibidas pelo Navegador do fundo
-  List<Widget> get _pages => [
-    ContadorPage(),
-    ConversorPage(),
-    MoedasPage(),
-    FavoritasPage(),
-  ];
+  List<Widget> get _pages => [MoedasPage(), FavoritasPage()];
 
   // Títulos correspondentes que serão exibidas no titulo
-  final List<String> _titles = ['Contador', 'Conversor', 'Moedas', 'Favoritos'];
+  final List<String> _titles = ['Moedas', 'Favoritos'];
 
   @override
   void initState() {
@@ -108,8 +103,8 @@ class _HomePageState extends State<HomePage> {
       ),
 
       drawer: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
@@ -121,6 +116,28 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.plus_one_rounded),
+              title: const Text('Contador'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ContadorPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.monetization_on_sharp),
+              title: const Text('Contador'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ConversorPage(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
@@ -144,14 +161,6 @@ class _HomePageState extends State<HomePage> {
 
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.plus_one),
-            label: 'Contador',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.monetization_on),
-            label: 'Conversor',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money_outlined),
             label: 'Moedas',

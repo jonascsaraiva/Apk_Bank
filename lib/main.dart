@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
+import 'package:teste_1/configs/hive_config.dart';
 import 'package:teste_1/configs/theme_settings.dart';
 import 'package:teste_1/repositories/favoritas_repository.dart';
 import 'package:teste_1/repositories/moedarepository.dart';
-
 import 'app_widget.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveConfig.start();
+
   runApp(
     MultiProvider(
       providers: [

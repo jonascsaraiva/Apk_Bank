@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 class AppSettings extends ChangeNotifier {
-  late SharedPreferences _prefs;
+  late Box _box;
+
   Map<String, String> locale = {'locale': 'pt_BR', 'name': 'R\$'};
 
   AppSettings() {
-    _loadSettings();
+    _init();
   }
 
-  _loadSettings() async {
-    _prefs = await SharedPreferences.getInstance();
-    final local = _prefs.getString('locale') ?? 'pt_BR';
-    final name = _prefs.getString('name') ?? 'R\$';
+  Future<void> _init() async {
+    _box = await Hive.openBox('settings');
+    final local = _box.get('locale', defaultValue: 'pt_BR');
+    final name = _box.get('name', defaultValue: 'R\$');
     locale = {'locale': local, 'name': name};
     notifyListeners();
   }
 
-  setLocale(String local, String name) async {
-    await _prefs.setString('locale', local);
-    await _prefs.setString('name', name);
+  Future<void> setLocale(String local, String name) async {
+    await _box.put('locale', local);
+    await _box.put('name', name);
     locale = {'locale': local, 'name': name};
     notifyListeners();
   }

@@ -48,6 +48,20 @@ class _ConversorPageState extends State<ConversorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Contador',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: const Color.fromARGB(255, 1, 46, 95),
+      ),
+
       body: ListView(
         padding: const EdgeInsets.only(top: 80.0, left: 20, right: 20),
 
