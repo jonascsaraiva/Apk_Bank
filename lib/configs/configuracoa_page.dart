@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Settings page',
+          'Configurações',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,

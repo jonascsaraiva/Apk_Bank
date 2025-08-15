@@ -8,11 +8,11 @@ class MoedaHiveAdapter extends TypeAdapter<Moeda> {
   @override
   Moeda read(BinaryReader reader) {
     return Moeda(
-      //      baseId: reader.readString(),
       icone: reader.readString(),
       nome: reader.readString(),
       sigla: reader.readString(),
       preco: reader.readDouble(),
+      //      baseId: reader.readString(),
       //      timestamp: reader.readDateTime(),
       //      preco: reader.readDouble(),
       //      preco: reader.readDouble(),

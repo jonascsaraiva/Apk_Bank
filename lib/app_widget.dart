@@ -8,7 +8,7 @@ import 'package:teste_1/list_pages.dart/register.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
 import 'package:teste_1/home_page.dart';
-import 'package:teste_1/configs/settings.dart';
+import 'package:teste_1/configs/configuracoa_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -23,6 +23,7 @@ class AppWidget extends StatelessWidget {
             title: 'AppBank',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              useMaterial3: false,
               brightness: Brightness.light,
               iconTheme: const IconThemeData(
                 color: Color.fromARGB(255, 0, 0, 0),
@@ -39,8 +40,7 @@ class AppWidget extends StatelessWidget {
               '/': (context) => const LoginPage(),
               '/home': (context) => const HomePage(),
               '/register': (context) => const Register(),
-              '/settings': (context) =>
-                  Settings(), // pega ThemeSettings via Provider
+              '/settings': (context) => Settings(),
               '/contador': (context) => const ContadorPage(),
               '/conversor': (context) => const ConversorPage(),
               '/moedas_page': (context) => MoedasPage(),

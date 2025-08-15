@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
 import 'package:teste_1/configs/hive_config.dart';
 import 'package:teste_1/configs/theme_settings.dart';
+import 'package:teste_1/repositories/conta_repository.dart';
 import 'package:teste_1/repositories/favoritas_repository.dart';
 import 'package:teste_1/repositories/moedarepository.dart';
 import 'app_widget.dart';
@@ -14,6 +15,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ContaRepository()),
         ChangeNotifierProvider(create: (_) => MoedaRepository()),
         ChangeNotifierProvider(create: (_) => FavoritasRepository()),
         ChangeNotifierProvider(create: (_) => AppSettings()),

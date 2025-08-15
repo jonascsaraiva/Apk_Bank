@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_1/list_pages.dart/account_page.dart';
+import 'package:teste_1/list_pages.dart/carteira_page.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
 import 'package:teste_1/list_pages.dart/favoritas_page.dart';
 import 'package:teste_1/list_pages.dart/moedas_page.dart';
-import 'package:teste_1/configs/settings.dart';
+import 'package:teste_1/configs/configuracoa_page.dart';
 import 'package:intl/intl.dart';
 import 'package:teste_1/configs/app_settings.dart';
 
@@ -23,10 +25,15 @@ class _HomePageState extends State<HomePage> {
   late Map<String, String> loc;
 
   // Telas que serão exibidas pelo Navegador do fundo
-  List<Widget> get _pages => [MoedasPage(), FavoritasPage()];
+  List<Widget> get _pages => [
+    accountPage(),
+    MoedasPage(),
+    carteiraPage(),
+    FavoritasPage(),
+  ];
 
   // Títulos correspondentes que serão exibidas no titulo
-  final List<String> _titles = ['Moedas', 'Favoritos'];
+  final List<String> _titles = ['Conta', 'Moedas', 'Carteira', 'Favoritos'];
 
   @override
   void initState() {
@@ -129,7 +136,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: const Icon(Icons.monetization_on_sharp),
-              title: const Text('Contador'),
+              title: const Text('Conversor'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -141,7 +148,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              title: const Text('Configurações'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -162,8 +169,16 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Conta',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.attach_money_outlined),
             label: 'Moedas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance_wallet),
+            label: 'Carteira',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
