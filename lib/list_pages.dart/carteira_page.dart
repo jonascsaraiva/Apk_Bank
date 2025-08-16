@@ -37,12 +37,12 @@ class _carteiraPageState extends State<carteiraPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 48),
+        padding: EdgeInsets.only(top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 48, bottom: 8),
+              padding: EdgeInsets.only(top: 20, bottom: 8),
               child: Text('Valor da carteira', style: TextStyle(fontSize: 35)),
             ),
             Text(
@@ -160,17 +160,22 @@ class _carteiraPageState extends State<carteiraPage> {
   }
 
   LoadHistorico() {
-    final historico = conta.historico;
+    final historico = conta.historico.reversed.toList();
+    ;
     final date = DateFormat('dd/MM/yyyy - hh:mm');
     List<Widget> widgets = [];
 
     for (var operacao in historico) {
       widgets.add(
         ListTile(
-          title: Text(operacao.moeda.nome),
-          subtitle: Text(date.format(operacao.dataOperacao)),
+          title: Text(operacao.moeda.nome, style: TextStyle(fontSize: 20)),
+          subtitle: Text(
+            date.format(operacao.dataOperacao),
+            style: TextStyle(fontSize: 16),
+          ),
           trailing: Text(
             real.format(operacao.moeda.preco * operacao.quantidade),
+            style: TextStyle(fontSize: 20),
           ),
         ),
       );

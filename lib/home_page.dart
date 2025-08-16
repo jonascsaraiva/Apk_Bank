@@ -18,47 +18,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; //Indice onde é escolhida a pagina
-  int counter = 0;
-  late PageController _pageController;
+  int _selectedIndex = 0;
   late NumberFormat real;
   late Map<String, String> loc;
 
-  // Telas que serão exibidas pelo Navegador do fundo
-  List<Widget> get _pages => [
+  // Telas que serão exibidas
+  final List<Widget> _pages = [
     accountPage(),
     MoedasPage(),
     carteiraPage(),
     FavoritasPage(),
   ];
 
-  // Títulos correspondentes que serão exibidas no titulo
+  // Títulos correspondentes
   final List<String> _titles = ['Conta', 'Moedas', 'Carteira', 'Favoritos'];
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: _selectedIndex);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.linear, //Troca o tipo de slider
-    );
-  }
-
-  void _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -74,11 +49,11 @@ class _HomePageState extends State<HomePage> {
     final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
 
     return PopupMenuButton(
-      icon: Icon(Icons.language),
+      icon: const Icon(Icons.language),
       itemBuilder: (context) => [
         PopupMenuItem(
           child: ListTile(
-            leading: Icon(Icons.swap_vert),
+            leading: const Icon(Icons.swap_vert),
             title: Text('Usar $locale'),
             onTap: () {
               context.read<AppSettings>().setLocale(locale, name);
@@ -98,7 +73,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           _titles[_selectedIndex],
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -113,11 +88,9 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 1, 46, 95),
-              ),
-              child: const Center(
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Color.fromARGB(255, 1, 46, 95)),
+              child: Center(
                 child: Text(
                   'Menu',
                   style: TextStyle(color: Colors.white, fontSize: 30),
@@ -159,37 +132,88 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      // Pageview do body com paginas dinamicas
-      body: PageView(
-        controller: _pageController,
-        children: _pages,
-        onPageChanged: _onPageChanged,
-      ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Conta',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money_outlined),
-            label: 'Moedas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet),
-            label: 'Carteira',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Favoritos',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 1, 46, 95),
-        unselectedItemColor: const Color.fromARGB(255, 126, 126, 126),
+      // IndexedStack mantém todas as páginas montadas
+      body: IndexedStack(index: _selectedIndex, children: _pages),
 
-        onTap: _onItemTapped, // Onde faz a animação da pagina lá no controller
+      bottomNavigationBar: Container(
+        height: 60,
+        color: const Color.fromARGB(255, 1, 46, 95),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(_pages.length, (i) {
+            final icons = [
+              Icons.account_circle_outlined,
+              Icons.attach_money_outlined,
+              Icons.account_balance_wallet,
+              Icons.favorite_border,
+            ];
+            final labels = ['Conta', 'Moedas', 'Carteira', 'Favoritos'];
+            final selected = _selectedIndex == i;
+
+            return GestureDetector(
+              onTap: () => _onItemTapped(i),
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Positioned(
+                      bottom: 11,
+                      child: Text(
+                        labels[i],
+                        style: TextStyle(
+                          color: selected ? Colors.white : Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    TweenAnimationBuilder<double>(
+                      tween: Tween<double>(begin: 1, end: selected ? 1.4 : 1),
+                      duration: const Duration(milliseconds: 450),
+                      builder: (context, scale, child) {
+                        return Transform.translate(
+                          offset: Offset(0, selected ? -20 : 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: selected
+                                  ? Colors.white
+                                  : Colors.transparent,
+                              shape: BoxShape.circle,
+                              boxShadow: selected
+                                  ? [
+                                      const BoxShadow(
+                                        color: Colors.white,
+                                        spreadRadius: 6,
+                                        blurRadius: 2,
+                                        offset: Offset(0, 0),
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            child: Transform.scale(
+                              scale: scale,
+                              child: Icon(
+                                icons[i],
+                                color: selected
+                                    ? const Color.fromARGB(255, 0, 0, 0)
+                                    : Colors.white,
+                                size: 27,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+        ),
       ),
     );
   }

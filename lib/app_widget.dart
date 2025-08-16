@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:teste_1/configs/theme_settings.dart';
 import 'package:teste_1/list_pages.dart/favoritas_page.dart';
 import 'package:teste_1/list_pages.dart/moedas_page.dart';
-import 'package:teste_1/list_pages.dart/login_page.dart';
+
 import 'package:teste_1/list_pages.dart/register.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
 import 'package:teste_1/home_page.dart';
 import 'package:teste_1/configs/configuracoa_page.dart';
+import 'package:teste_1/widgets/auth_check.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -20,7 +21,7 @@ class AppWidget extends StatelessWidget {
       child: Consumer<ThemeSettings>(
         builder: (context, themeSettings, _) {
           return MaterialApp(
-            title: 'AppBank',
+            title: 'wallet Monitor app',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               useMaterial3: false,
@@ -37,7 +38,7 @@ class AppWidget extends StatelessWidget {
             ),
             themeMode: themeSettings.isDark ? ThemeMode.dark : ThemeMode.light,
             routes: {
-              '/': (context) => const LoginPage(),
+              '/': (context) => const AuthCheck(),
               '/home': (context) => const HomePage(),
               '/register': (context) => const Register(),
               '/settings': (context) => Settings(),

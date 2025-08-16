@@ -80,7 +80,7 @@ class _ConversorPageState extends State<ConversorPage> {
               Expanded(
                 flex: 1,
                 child: DropdownButtonFormField<String>(
-                  value: _fromCurrency,
+                  initialValue: _fromCurrency,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),
@@ -115,7 +115,7 @@ class _ConversorPageState extends State<ConversorPage> {
 
           // Moeda destino
           DropdownButtonFormField<String>(
-            value: _toCurrency,
+            initialValue: _toCurrency,
             decoration: const InputDecoration(
               labelText: 'Converter para',
               border: OutlineInputBorder(),
