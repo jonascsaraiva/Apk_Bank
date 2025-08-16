@@ -25,12 +25,6 @@ class _AuthCheck extends State<AuthCheck> {
   }
 
   loading() {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: Color.fromARGB(255, 255, 0, 0),
-        ),
-      ),
-    );
+    return Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
