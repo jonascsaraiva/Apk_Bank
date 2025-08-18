@@ -9,6 +9,7 @@ import 'package:teste_1/list_pages.dart/moedas_page.dart';
 import 'package:teste_1/configs/configuracoa_page.dart';
 import 'package:intl/intl.dart';
 import 'package:teste_1/configs/app_settings.dart';
+import 'package:teste_1/services/auth_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -85,8 +86,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(color: Color.fromARGB(255, 1, 46, 95)),
@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Configurações'),
@@ -128,6 +129,18 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => const Settings()),
                 );
               },
+            ),
+            Expanded(child: Container()),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton.icon(
+                onPressed: () => context.read<AuthService>().logout(),
+                icon: Icon(Icons.logout),
+                label: Text("Sair do app"),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50), // largura total
+                ),
+              ),
             ),
           ],
         ),

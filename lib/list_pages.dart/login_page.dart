@@ -51,9 +51,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   login() async {
+    setState(() => loading = true);
     try {
       await context.read<AuthService>().login(email.text, senha.text);
     } on AuthException catch (e) {
+      setState(() => loading = false);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.message)));
@@ -61,9 +63,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   registrar() async {
+    setState(() => loading = true);
     try {
       await context.read<AuthService>().registrar(email.text, senha.text);
     } on AuthException catch (e) {
+      setState(() => loading = false);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.message)));
@@ -186,16 +190,29 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.check),
-                          Padding(
-                            padding: EdgeInsetsGeometry.all(16.0),
-                            child: Text(
-                              actionButton,
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ],
+                        children: (loading)
+                            ? [
+                                Padding(
+                                  padding: EdgeInsetsGeometry.all(16.0),
+                                  child: SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ]
+                            : [
+                                Icon(Icons.check),
+                                Padding(
+                                  padding: EdgeInsetsGeometry.all(16.0),
+                                  child: Text(
+                                    actionButton,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              ],
                       ),
                     ),
                   ),

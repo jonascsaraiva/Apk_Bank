@@ -90,7 +90,11 @@ class _MoedasPageState extends State<MoedasPage> {
                 if (favoritas.lista.any(
                   (fav) => fav.sigla == tabela[moeda].sigla,
                 ))
-                  Icon(Icons.circle, color: Colors.amber, size: 8),
+                  Icon(
+                    Icons.circle,
+                    color: const Color.fromARGB(255, 48, 255, 7),
+                    size: 7,
+                  ),
               ],
             ),
             trailing: Text(
@@ -98,7 +102,7 @@ class _MoedasPageState extends State<MoedasPage> {
               style: TextStyle(fontSize: 15),
             ),
             selected: selecionadas.contains(tabela[moeda]),
-            selectedTileColor: Colors.indigo[50],
+            selectedTileColor: const Color.fromARGB(127, 102, 102, 102),
             onLongPress: () {
               setState(() {
                 (selecionadas.contains(tabela[moeda]))

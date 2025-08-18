@@ -19,8 +19,8 @@ class _MoedaCardState extends State<MoedaCard> {
   NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
 
   static Map<String, Color> precoColor = <String, Color>{
-    'up': const Color.fromARGB(255, 7, 197, 178),
-    'down': const Color.fromARGB(255, 46, 62, 153),
+    'up': const Color.fromARGB(255, 1, 252, 227),
+    'down': const Color.fromARGB(255, 12, 39, 192),
   }; // cores
 
   abrirDetalhes() {
@@ -57,10 +57,7 @@ class _MoedaCardState extends State<MoedaCard> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        widget.moeda.sigla,
-                        style: TextStyle(fontSize: 13, color: Colors.black45),
-                      ),
+                      Text(widget.moeda.sigla, style: TextStyle(fontSize: 13)),
                     ],
                   ),
                 ),
