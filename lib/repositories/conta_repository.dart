@@ -4,7 +4,7 @@ import 'package:teste_1/database/db.dart';
 import 'package:teste_1/models/historico.dart';
 import 'package:teste_1/models/moeda.dart';
 import 'package:teste_1/models/posicao.dart';
-import 'package:teste_1/repositories/moedarepository.dart';
+import 'package:teste_1/repositories/moeda_repository.dart';
 
 class ContaRepository extends ChangeNotifier {
   late Database db;

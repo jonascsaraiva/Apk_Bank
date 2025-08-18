@@ -7,7 +7,7 @@ import 'package:teste_1/configs/hive_config.dart';
 import 'package:teste_1/configs/theme_settings.dart';
 import 'package:teste_1/repositories/conta_repository.dart';
 import 'package:teste_1/repositories/favoritas_repository.dart';
-import 'package:teste_1/repositories/moedarepository.dart';
+import 'package:teste_1/repositories/moeda_repository.dart';
 import 'package:teste_1/services/auth_service.dart';
 
 void main() async {
@@ -21,7 +21,10 @@ void main() async {
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => ContaRepository()),
         ChangeNotifierProvider(create: (_) => MoedaRepository()),
-        ChangeNotifierProvider(create: (_) => FavoritasRepository()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              FavoritasRepository(auth: context.read<AuthService>()),
+        ),
         ChangeNotifierProvider(create: (_) => AppSettings()),
         ChangeNotifierProvider(create: (_) => ThemeSettings()),
       ],

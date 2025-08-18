@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste_1/list_pages.dart/moedasDetalhes_page.dart';
 import 'package:teste_1/models/moeda.dart';
 import 'package:teste_1/repositories/favoritas_repository.dart';
-import 'package:teste_1/repositories/moedarepository.dart';
+import 'package:teste_1/repositories/moeda_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
 
