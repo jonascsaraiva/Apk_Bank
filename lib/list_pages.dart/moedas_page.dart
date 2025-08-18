@@ -57,11 +57,17 @@ class _MoedasPageState extends State<MoedasPage> {
     }
   }
 
-  mostrarDetalhes(Moeda moeda) {
-    Navigator.push(
+  mostrarDetalhes(Moeda moeda) async {
+    final atualizou = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => MoedasDetalhesPage(moeda: moeda)),
     );
+
+    if (atualizou == true) {
+      setState(() {
+        tabela = moedas.tabela; // força atualizar histórico e valores
+      });
+    }
   }
 
   limparSelecionadas() {
@@ -105,7 +111,7 @@ class _MoedasPageState extends State<MoedasPage> {
                   ))
                     Icon(
                       Icons.circle,
-                      color: const Color.fromARGB(255, 48, 255, 7),
+                      color: const Color.fromARGB(255, 28, 255, 7),
                       size: 7,
                     ),
                 ],

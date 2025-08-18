@@ -102,12 +102,27 @@ class ContaRepository extends ChangeNotifier {
     _historico = [];
     List posicoes = await db.query('historico');
 
-    final moedaRepo = MoedaRepository();
-
     posicoes.forEach((operacao) {
-      Moeda moeda = moedaRepo.tabela.firstWhere(
+      // Usa o repositório existente
+      Moeda moeda = moedas.tabela.firstWhere(
         (m) => m.sigla == operacao['sigla'],
+        orElse: () => Moeda(
+          baseId: '',
+          icone: '',
+          sigla: operacao['sigla'],
+          nome: operacao['moeda'],
+          preco: 0,
+          timestamp: DateTime.now(),
+          mudancaHora: 0,
+          mudancaDia: 0,
+          mudancaSemana: 0,
+          mudancaMes: 0,
+          mudancaAno: 0,
+          mudancaPeriodoTotal: 0,
+          cor: '',
+        ),
       );
+
       _historico.add(
         Historico(
           dataOperacao: DateTime.fromMillisecondsSinceEpoch(

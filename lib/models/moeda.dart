@@ -11,6 +11,7 @@ class Moeda {
   double mudancaMes;
   double mudancaAno;
   double mudancaPeriodoTotal;
+  final cor;
 
   Moeda({
     required this.baseId,
@@ -25,5 +26,6 @@ class Moeda {
     required this.mudancaMes,
     required this.mudancaAno,
     required this.mudancaPeriodoTotal,
+    required this.cor,
   });
 }

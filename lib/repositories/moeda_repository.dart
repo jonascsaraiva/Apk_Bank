@@ -88,6 +88,7 @@ class MoedaRepository extends ChangeNotifier {
         mudancaAno: double.tryParse(row['mudancaAno']?.toString() ?? '0') ?? 0,
         mudancaPeriodoTotal:
             double.tryParse(row['mudancaPeriodoTotal']?.toString() ?? '0') ?? 0,
+        cor: hexToColor(row['corHex']?.toString() ?? '#CCCCCC'),
       );
     }).toList();
 
@@ -135,12 +136,19 @@ class MoedaRepository extends ChangeNotifier {
             'mudancaMes': percentChange['month']?.toString() ?? '0',
             'mudancaAno': percentChange['year']?.toString() ?? '0',
             'mudancaPeriodoTotal': percentChange['all']?.toString() ?? '0',
+            'corHex': moeda['color']?.toString() ?? '#CCCCCC',
           });
         }
 
         await batch.commit(noResult: true);
       }
     }
+  }
+
+  Color hexToColor(String hex) {
+    hex = hex.replaceAll('#', '');
+    if (hex.length == 6) hex = 'FF$hex';
+    return Color(int.parse(hex, radix: 16));
   }
 
   _setupMoedasTable() async {
@@ -157,7 +165,8 @@ class MoedaRepository extends ChangeNotifier {
         mudancaSemana TEXT,
         mudancaMes TEXT,
         mudancaAno TEXT,
-        mudancaPeriodoTotal TEXT
+        mudancaPeriodoTotal TEXT,
+        corHex TEXT
       );
     ''';
     Database db = await DB.instance.database;

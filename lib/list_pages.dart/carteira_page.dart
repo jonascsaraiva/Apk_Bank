@@ -94,7 +94,7 @@ class _carteiraPageState extends State<carteiraPage> {
       final isSaldo = i == tamanhoLista - 1;
       final fontSize = isTouched ? 18.0 : 14.0;
       final radius = isTouched ? 60.0 : 50.0;
-      final color = isTouched ? Colors.tealAccent[400] : Colors.tealAccent[400];
+      final color = (!isSaldo) ? carteira[i].moeda.cor : Colors.grey[300];
 
       double porcentagem = 0;
       if (!isSaldo) {
@@ -181,6 +181,7 @@ class _carteiraPageState extends State<carteiraPage> {
       );
       widgets.add(Divider());
     }
+    print('Historico length: ${conta.historico.length}');
     return Column(children: widgets);
   }
 }
