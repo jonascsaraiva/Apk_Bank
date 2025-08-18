@@ -5,6 +5,7 @@ import 'package:teste_1/repositories/favoritas_repository.dart';
 import 'package:teste_1/repositories/moeda_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
+import 'package:intl/intl.dart';
 
 class MoedasPage extends StatefulWidget {
   MoedasPage({Key? key}) : super(key: key);
@@ -14,13 +15,17 @@ class MoedasPage extends StatefulWidget {
 }
 
 class _MoedasPageState extends State<MoedasPage> {
-  final tabela = MoedaRepository().tabela;
+  late List<Moeda> tabela;
+  late NumberFormat real;
+  late Map<String, String> loc;
   List<Moeda> selecionadas = [];
   late FavoritasRepository favoritas;
+  late MoedaRepository moedas;
   late AppSettings settings;
 
-  String formatarValor(double valor) {
-    return settings.formatarPreco(valor);
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
   }
 
   appBarDinamica() {
@@ -68,54 +73,63 @@ class _MoedasPageState extends State<MoedasPage> {
   @override
   Widget build(BuildContext context) {
     favoritas = context.watch<FavoritasRepository>();
+    moedas = context.watch<MoedaRepository>();
+    tabela = moedas.tabela;
+    readNumberFormat();
     settings = context.watch<AppSettings>();
 
     return Scaffold(
       appBar: appBarDinamica(),
-      body: ListView.separated(
-        itemBuilder: (BuildContext context, int moeda) {
-          return ListTile(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-            ),
-            leading: (selecionadas.contains(tabela[moeda]))
-                ? CircleAvatar(child: Icon(Icons.check))
-                : SizedBox(child: Image.asset(tabela[moeda].icone), width: 40),
-            title: Row(
-              children: [
-                Text(
-                  tabela[moeda].nome,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                ),
-                if (favoritas.lista.any(
-                  (fav) => fav.sigla == tabela[moeda].sigla,
-                ))
-                  Icon(
-                    Icons.circle,
-                    color: const Color.fromARGB(255, 48, 255, 7),
-                    size: 7,
+      body: RefreshIndicator(
+        onRefresh: () => moedas.checkPrecos(),
+        child: ListView.separated(
+          itemBuilder: (BuildContext context, int moeda) {
+            return ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+              ),
+              leading: (selecionadas.contains(tabela[moeda]))
+                  ? CircleAvatar(child: Icon(Icons.check))
+                  : SizedBox(
+                      child: Image.network(tabela[moeda].icone),
+                      width: 40,
+                    ),
+              title: Row(
+                children: [
+                  Text(
+                    tabela[moeda].nome,
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                   ),
-              ],
-            ),
-            trailing: Text(
-              formatarValor(tabela[moeda].preco),
-              style: TextStyle(fontSize: 15),
-            ),
-            selected: selecionadas.contains(tabela[moeda]),
-            selectedTileColor: const Color.fromARGB(127, 102, 102, 102),
-            onLongPress: () {
-              setState(() {
-                (selecionadas.contains(tabela[moeda]))
-                    ? selecionadas.remove(tabela[moeda])
-                    : selecionadas.add(tabela[moeda]);
-              });
-            },
-            onTap: () => mostrarDetalhes(tabela[moeda]),
-          );
-        },
-        padding: EdgeInsets.all(16),
-        separatorBuilder: (_, ___) => Divider(),
-        itemCount: tabela.length,
+                  if (favoritas.lista.any(
+                    (fav) => fav.sigla == tabela[moeda].sigla,
+                  ))
+                    Icon(
+                      Icons.circle,
+                      color: const Color.fromARGB(255, 48, 255, 7),
+                      size: 7,
+                    ),
+                ],
+              ),
+              trailing: Text(
+                real.format(tabela[moeda].preco),
+                style: TextStyle(fontSize: 15),
+              ),
+              selected: selecionadas.contains(tabela[moeda]),
+              selectedTileColor: const Color.fromARGB(127, 102, 102, 102),
+              onLongPress: () {
+                setState(() {
+                  (selecionadas.contains(tabela[moeda]))
+                      ? selecionadas.remove(tabela[moeda])
+                      : selecionadas.add(tabela[moeda]);
+                });
+              },
+              onTap: () => mostrarDetalhes(tabela[moeda]),
+            );
+          },
+          padding: EdgeInsets.all(16),
+          separatorBuilder: (_, ___) => Divider(),
+          itemCount: tabela.length,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: selecionadas.isNotEmpty

@@ -12,7 +12,7 @@ class FavoritasRepository extends ChangeNotifier {
   late FirebaseFirestore db;
   late AuthService auth;
 
-  FavoritasRepository({required this.auth}) {
+  FavoritasRepository({required this.auth, required MoedaRepository moedas}) {
     _startRepository();
   }
 

@@ -18,15 +18,23 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthService()),
-        ChangeNotifierProvider(create: (_) => ContaRepository()),
-        ChangeNotifierProvider(create: (_) => MoedaRepository()),
-        ChangeNotifierProvider(
-          create: (context) =>
-              FavoritasRepository(auth: context.read<AuthService>()),
-        ),
         ChangeNotifierProvider(create: (_) => AppSettings()),
         ChangeNotifierProvider(create: (_) => ThemeSettings()),
+
+        //Providdr importante abaixo:
+        ChangeNotifierProvider(create: (context) => AuthService()),
+        ChangeNotifierProvider(create: (context) => MoedaRepository()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              ContaRepository(moedas: context.read<MoedaRepository>()),
+        ),
+        ChangeNotifierProvider(create: (context) => AppSettings()),
+        ChangeNotifierProvider(
+          create: (context) => FavoritasRepository(
+            auth: context.read<AuthService>(),
+            moedas: context.read<MoedaRepository>(),
+          ),
+        ),
       ],
       child: const AppWidget(),
     ),
