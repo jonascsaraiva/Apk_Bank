@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
 import 'package:teste_1/models/moeda.dart';
 import 'package:teste_1/repositories/conta_repository.dart';
+import 'package:teste_1/widgets/grafico_historico.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   final Moeda moeda;
@@ -21,6 +22,16 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
   final _valor = TextEditingController();
   double quantidade = 0;
   late ContaRepository conta;
+  Widget grafico = Container();
+  bool graficoLoaded = false;
+
+  getGrafico() {
+    if (!graficoLoaded) {
+      grafico = GraficoHistorico(moeda: widget.moeda);
+      graficoLoaded = true;
+    }
+    return grafico;
+  }
 
   comprar() async {
     if (_form.currentState!.validate()) {
@@ -70,7 +81,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                 ],
               ),
             ),
-
+            getGrafico(),
             (quantidade > 0)
                 ? SizedBox(
                     width: MediaQuery.of(context).size.width,

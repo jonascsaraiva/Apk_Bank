@@ -119,7 +119,7 @@ class ContaRepository extends ChangeNotifier {
           mudancaMes: 0,
           mudancaAno: 0,
           mudancaPeriodoTotal: 0,
-          cor: '',
+          corHex: '',
         ),
       );
 

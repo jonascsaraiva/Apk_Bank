@@ -1,3 +1,9 @@
+import 'package:flutter/material.dart';
+
+Color hexToColor(String code) {
+  return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
+
 class Moeda {
   String baseId;
   String icone;
@@ -11,7 +17,7 @@ class Moeda {
   double mudancaMes;
   double mudancaAno;
   double mudancaPeriodoTotal;
-  final cor;
+  final String corHex;
 
   Moeda({
     required this.baseId,
@@ -26,6 +32,8 @@ class Moeda {
     required this.mudancaMes,
     required this.mudancaAno,
     required this.mudancaPeriodoTotal,
-    required this.cor,
+    required this.corHex,
   });
+
+  Color get cor => hexToColor(corHex);
 }
