@@ -102,9 +102,14 @@ class _MoedasPageState extends State<MoedasPage> {
                     ),
               title: Row(
                 children: [
-                  Text(
-                    tabela[moeda].nome,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                  Expanded(
+                    child: Text(
+                      tabela[moeda].nome,
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ),
                   if (favoritas.lista.any(
                     (fav) => fav.sigla == tabela[moeda].sigla,
@@ -118,7 +123,7 @@ class _MoedasPageState extends State<MoedasPage> {
               ),
               trailing: Text(
                 real.format(tabela[moeda].preco),
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
               ),
               selected: selecionadas.contains(tabela[moeda]),
               selectedTileColor: const Color.fromARGB(127, 102, 102, 102),

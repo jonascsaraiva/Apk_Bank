@@ -43,13 +43,16 @@ class _carteiraPageState extends State<carteiraPage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 20, bottom: 8),
-              child: Text('Valor da carteira', style: TextStyle(fontSize: 35)),
+              child: Text(
+                'Valor da carteira',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w300),
+              ),
             ),
             Text(
               real.format(totalCarteira),
               style: TextStyle(
                 fontSize: 35,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w100,
                 letterSpacing: -1.5,
               ),
             ),
@@ -112,7 +115,7 @@ class _carteiraPageState extends State<carteiraPage> {
         radius: radius,
         titleStyle: TextStyle(
           fontSize: fontSize,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w800,
           color: Colors.black87,
         ),
       );
@@ -133,7 +136,7 @@ class _carteiraPageState extends State<carteiraPage> {
                 aspectRatio: 1,
                 child: PieChart(
                   PieChartData(
-                    sectionsSpace: 5,
+                    sectionsSpace: 3,
                     centerSpaceRadius: 110,
                     sections: loadCarteira(),
                     pieTouchData: PieTouchData(
@@ -148,10 +151,14 @@ class _carteiraPageState extends State<carteiraPage> {
               ),
               Column(
                 children: [
-                  Text(graficoLabel, style: TextStyle(fontSize: 25)),
-                  Text(
-                    real.format(graficoValor),
-                    style: TextStyle(fontSize: 28),
+                  FittedBox(
+                    child: Text(graficoLabel, style: TextStyle(fontSize: 25)),
+                  ),
+                  FittedBox(
+                    child: Text(
+                      real.format(graficoValor),
+                      style: TextStyle(fontSize: 25),
+                    ),
                   ),
                 ],
               ),
@@ -168,14 +175,17 @@ class _carteiraPageState extends State<carteiraPage> {
     for (var operacao in historico) {
       widgets.add(
         ListTile(
-          title: Text(operacao.moeda.nome, style: TextStyle(fontSize: 20)),
+          title: Text(
+            operacao.moeda.nome,
+            style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800),
+          ),
           subtitle: Text(
             date.format(operacao.dataOperacao),
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
           ),
           trailing: Text(
             real.format(operacao.moeda.preco * operacao.quantidade),
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
         ),
       );

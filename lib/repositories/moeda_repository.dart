@@ -21,7 +21,7 @@ class MoedaRepository extends ChangeNotifier {
   }
 
   _refreshPrecos() async {
-    intervalo = Timer.periodic(Duration(minutes: 5), (_) => checkPrecos());
+    intervalo = Timer.periodic(Duration(days: 1), (_) => checkPrecos());
   }
 
   checkPrecos() async {

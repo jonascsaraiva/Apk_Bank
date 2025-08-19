@@ -55,7 +55,10 @@ class _HomePageState extends State<HomePage> {
         PopupMenuItem(
           child: ListTile(
             leading: const Icon(Icons.swap_vert),
-            title: Text('Usar $locale'),
+            title: Text(
+              'Usar $locale',
+              style: TextStyle(fontWeight: FontWeight.w800),
+            ),
             onTap: () {
               context.read<AppSettings>().setLocale(locale, name);
               Navigator.pop(context);
@@ -74,14 +77,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           _titles[_selectedIndex],
-          style: const TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w800),
         ),
         actions: [changeLanguageButton()],
-        iconTheme: const IconThemeData(color: Colors.white),
+
         backgroundColor: const Color.fromARGB(255, 1, 46, 95),
       ),
 
@@ -93,13 +92,19 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Text(
                   'Menu',
-                  style: TextStyle(color: Colors.white, fontSize: 30),
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w800),
                 ),
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.plus_one_rounded),
-              title: const Text('Contador'),
+              leading: const Icon(Icons.plus_one_rounded, size: 24),
+              title: const Text(
+                'Contador',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -108,8 +113,14 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.monetization_on_sharp),
-              title: const Text('Conversor'),
+              leading: const Icon(Icons.monetization_on_sharp, size: 24),
+              title: const Text(
+                'Conversor',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -121,8 +132,14 @@ class _HomePageState extends State<HomePage> {
             ),
 
             ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configurações'),
+              leading: const Icon(Icons.settings, size: 24),
+              title: const Text(
+                'Configurações',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -177,15 +194,19 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         labels[i],
                         style: TextStyle(
-                          color: selected ? Colors.white : Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                          color: selected
+                              ? Colors.white
+                              : const Color.fromARGB(255, 189, 189, 189),
+                          fontSize: selected ? 17 : 14,
+                          fontWeight: selected
+                              ? FontWeight.w900
+                              : FontWeight.w600,
                         ),
                       ),
                     ),
                     TweenAnimationBuilder<double>(
                       tween: Tween<double>(begin: 1, end: selected ? 1.4 : 1),
-                      duration: const Duration(milliseconds: 450),
+                      duration: const Duration(milliseconds: 500),
                       builder: (context, scale, child) {
                         return Transform.translate(
                           offset: Offset(0, selected ? -20 : 0),

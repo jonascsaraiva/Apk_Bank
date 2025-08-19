@@ -13,12 +13,11 @@ class _FavoritasPageState extends State<FavoritasPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.all(12.0),
-        child: Consumer<FavoritasRepository>(
-          builder: (context, favoritas, child) {
-            return favoritas.lista.isEmpty
+      body: Consumer<FavoritasRepository>(
+        builder: (context, favoritas, child) {
+          return RefreshIndicator(
+            onRefresh: () => favoritas.refresh(),
+            child: favoritas.lista.isEmpty
                 ? ListTile(
                     leading: Icon(Icons.star),
                     title: Text('Ainda não há moedas favoritas'),
@@ -28,9 +27,9 @@ class _FavoritasPageState extends State<FavoritasPage> {
                     itemBuilder: (_, index) {
                       return MoedaCard(moeda: favoritas.lista[index]);
                     },
-                  );
-          },
-        ),
+                  ),
+          );
+        },
       ),
     );
   }
