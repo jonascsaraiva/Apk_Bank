@@ -40,7 +40,6 @@ class AppWidget extends StatelessWidget {
 
             routes: {
               '/': (context) => const AuthCheck(),
-              //'/home': (context) => const HomePage(), primeira rota sempre é o /, então não precisa dessa rota aqui
               '/settings': (context) => Settings(),
               '/contador': (context) => const ContadorPage(),
               '/conversor': (context) => const ConversorPage(),

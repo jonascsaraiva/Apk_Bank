@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:teste_1/configs/app_settings.dart';
 import 'package:teste_1/repositories/conta_repository.dart';
@@ -13,6 +15,8 @@ class accountPage extends StatefulWidget {
 }
 
 class _accountPageState extends State<accountPage> {
+  XFile? comprovante;
+
   @override
   Widget build(BuildContext context) {
     final conta = context.watch<ContaRepository>();
@@ -32,7 +36,10 @@ class _accountPageState extends State<accountPage> {
               title: Text('Saldo'),
               subtitle: Text(
                 real.format(conta.saldo),
-                style: TextStyle(fontSize: 25, color: Colors.indigo),
+                style: TextStyle(
+                  fontSize: 25,
+                  color: const Color.fromARGB(255, 10, 42, 221),
+                ),
               ),
               trailing: IconButton(
                 onPressed: updateSaldo,
@@ -40,10 +47,29 @@ class _accountPageState extends State<accountPage> {
               ),
             ),
             Divider(),
+            ListTile(
+              leading: Icon(Icons.attach_file),
+              title: Text('Enviar Comprovante de Depósito'),
+              onTap: selecionarComprovante,
+              trailing: comprovante != null
+                  ? Image.file(File(comprovante!.path))
+                  : null,
+            ),
           ],
         ),
       ),
     );
+  }
+
+  selecionarComprovante() async {
+    final ImagePicker picker = ImagePicker();
+
+    try {
+      XFile? file = await picker.pickImage(source: ImageSource.gallery);
+      if (file != null) setState(() => comprovante = file);
+    } catch (e) {
+      print(e);
+    }
   }
 
   updateSaldo() async {

@@ -4,6 +4,7 @@ import 'package:teste_1/list_pages.dart/account_page.dart';
 import 'package:teste_1/list_pages.dart/carteira_page.dart';
 import 'package:teste_1/list_pages.dart/conversor_page.dart';
 import 'package:teste_1/list_pages.dart/counter_page.dart';
+import 'package:teste_1/list_pages.dart/documentos_page.dart';
 import 'package:teste_1/list_pages.dart/favoritas_page.dart';
 import 'package:teste_1/list_pages.dart/moedas_page.dart';
 import 'package:teste_1/configs/configuracoa_page.dart';
@@ -74,6 +75,7 @@ class _HomePageState extends State<HomePage> {
     readNumberFormat();
 
     return Scaffold(
+      //Header do app,nome dinanmico
       appBar: AppBar(
         title: Text(
           _titles[_selectedIndex],
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
 
         backgroundColor: const Color.fromARGB(255, 1, 46, 95),
       ),
-
+      // Menu a parte do app
       drawer: Drawer(
         child: Column(
           children: [
@@ -92,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Text(
                   'Menu',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -130,7 +132,25 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-
+            ListTile(
+              leading: const Icon(Icons.camera_alt_rounded, size: 24),
+              title: const Text(
+                'Escaner',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DocumentosPage(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
+            ),
             ListTile(
               leading: const Icon(Icons.settings, size: 24),
               title: const Text(
@@ -147,14 +167,19 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+
             Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton.icon(
                 onPressed: () => context.read<AuthService>().logout(),
-                icon: Icon(Icons.logout),
-                label: Text("Sair do app"),
+                icon: Icon(Icons.logout, color: Colors.white),
+                label: Text(
+                  "Sair do app",
+                  style: TextStyle(color: Colors.white),
+                ),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 1, 46, 95),
                   minimumSize: Size(double.infinity, 50), // largura total
                 ),
               ),
@@ -162,10 +187,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-
-      // IndexedStack mantém todas as páginas montadas
+      // IndexedStack mantém todas as páginas montadas(Evitar microtravamentos)Faz a chama na função de cima.
       body: IndexedStack(index: _selectedIndex, children: _pages),
-
+      // Barra de navegação do rodapé do app
       bottomNavigationBar: Container(
         height: 60,
         color: const Color.fromARGB(255, 1, 46, 95),
