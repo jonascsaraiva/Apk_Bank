@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:teste_1/list_pages.dart/vendas_lista_page.dart';
 
 class carteiraPage extends StatefulWidget {
   const carteiraPage({super.key});
@@ -57,6 +58,37 @@ class _carteiraPageState extends State<carteiraPage> {
               ),
             ),
             loadGrafico(),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.sell_outlined),
+                  label: const Text(
+                    'Vender',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 5, 62, 122),
+                    minimumSize: Size(double.infinity, 50), // largura total
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const VendasListaPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
             LoadHistorico(),
           ],
         ),

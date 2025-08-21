@@ -137,4 +137,59 @@ class ContaRepository extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<void> Vender(Moeda moeda, double valor) async {
+    if (valor <= 0) throw Exception('Valor inválido');
+
+    db = await DB.instance.database;
+
+    await db.transaction((txn) async {
+      final posicaoMoeda = await txn.query(
+        'carteira',
+        where: 'sigla = ?',
+        whereArgs: [moeda.sigla],
+      );
+      if (posicaoMoeda.isEmpty)
+        throw Exception('Você não possui ${moeda.sigla}.');
+
+      final atual =
+          double.tryParse(
+            posicaoMoeda.first['quantidade']?.toString() ?? '0',
+          ) ??
+          0;
+      final preco = moeda.preco > 0 ? moeda.preco : 1;
+      final qtdVender = valor / preco;
+      if (qtdVender > atual + 1e-8) throw Exception('Quantidade insuficiente.');
+
+      final novaQtd = atual - qtdVender;
+      if (novaQtd <= 0.00000001) {
+        await txn.delete(
+          'carteira',
+          where: 'sigla = ?',
+          whereArgs: [moeda.sigla],
+        );
+      } else {
+        await txn.update(
+          'carteira',
+          {'quantidade': novaQtd.toString()},
+          where: 'sigla = ?',
+          whereArgs: [moeda.sigla],
+        );
+      }
+
+      await txn.insert('historico', {
+        'sigla': moeda.sigla,
+        'moeda': moeda.nome,
+        'quantidade': qtdVender.toString(),
+        'valor': valor,
+        'tipo_operacao': 'venda',
+        'data_operacao': DateTime.now().millisecondsSinceEpoch,
+      });
+
+      await txn.update('conta', {'saldo': saldo + valor});
+    });
+
+    await _initRepository();
+    notifyListeners();
+  }
 }

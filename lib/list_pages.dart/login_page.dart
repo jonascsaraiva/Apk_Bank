@@ -86,10 +86,10 @@ class _LoginPageState extends State<LoginPage> {
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 15, 68, 124),
-                  Color.fromARGB(255, 35, 93, 151),
+                  Color.fromARGB(223, 35, 93, 151),
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
             padding: EdgeInsets.only(
