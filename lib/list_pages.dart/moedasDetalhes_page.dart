@@ -6,6 +6,7 @@ import 'package:teste_1/configs/app_settings.dart';
 import 'package:teste_1/models/moeda.dart';
 import 'package:teste_1/repositories/conta_repository.dart';
 import 'package:teste_1/widgets/grafico_historico.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MoedasDetalhesPage extends StatefulWidget {
   final Moeda moeda;
@@ -46,6 +47,17 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
     }
   }
 
+  void compartilharPreco() {
+    final moeda = widget.moeda;
+
+    SharePlus.instance.share(
+      ShareParams(
+        text:
+            'Confira o Preço do ${moeda.nome} agora: ${real.format(moeda.preco)}',
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     readNumberFormat();
@@ -54,6 +66,9 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.moeda.nome),
+        actions: [
+          IconButton(icon: Icon(Icons.share), onPressed: compartilharPreco),
+        ],
         titleTextStyle: TextStyle(color: Colors.white),
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Color.fromARGB(255, 15, 68, 124),
