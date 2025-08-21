@@ -200,13 +200,19 @@ class _carteiraPageState extends State<carteiraPage> {
 
   LoadHistorico() {
     final historico = conta.historico.reversed.toList();
-    ;
     final date = DateFormat('dd/MM/yyyy - hh:mm');
     List<Widget> widgets = [];
 
     for (var operacao in historico) {
+      final isVenda = operacao.tipoOperacao == 'venda';
+      final valor = operacao.moeda.preco * operacao.quantidade;
+
       widgets.add(
         ListTile(
+          leading: Icon(
+            isVenda ? Icons.arrow_downward : Icons.arrow_upward,
+            color: isVenda ? Colors.red : Colors.green,
+          ),
           title: Text(
             operacao.moeda.nome,
             style: TextStyle(fontSize: 21, fontWeight: FontWeight.w800),
@@ -216,8 +222,12 @@ class _carteiraPageState extends State<carteiraPage> {
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
           ),
           trailing: Text(
-            real.format(operacao.moeda.preco * operacao.quantidade),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+            '${isVenda ? "Venda:" : "Compra:"} ${real.format(valor)}',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+              color: isVenda ? Colors.red : Colors.green,
+            ),
           ),
         ),
       );

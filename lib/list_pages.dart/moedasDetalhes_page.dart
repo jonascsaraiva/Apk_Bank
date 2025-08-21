@@ -103,7 +103,7 @@ class _MoedasDetalhesPageState extends State<MoedasDetalhesPage> {
                     child: Container(
                       child: Text(
                         '$quantidade ${widget.moeda.sigla}',
-                        style: TextStyle(fontSize: 20, color: Colors.teal),
+                        style: TextStyle(fontSize: 20),
                       ),
                       margin: EdgeInsets.only(bottom: 24),
                       alignment: Alignment.center,

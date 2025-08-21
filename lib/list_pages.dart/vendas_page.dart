@@ -159,7 +159,6 @@ class _VenderMoedaPageState extends State<VenderMoedaPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -170,7 +169,6 @@ class _VenderMoedaPageState extends State<VenderMoedaPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -181,7 +179,6 @@ class _VenderMoedaPageState extends State<VenderMoedaPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -192,7 +189,6 @@ class _VenderMoedaPageState extends State<VenderMoedaPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
-                        color: Colors.black,
                       ),
                     ),
                   ),

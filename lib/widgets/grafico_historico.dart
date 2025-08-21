@@ -148,10 +148,14 @@ class _GraficoHistoricoState extends State<GraficoHistorico> {
         child: Text(label),
         style: (periodo != p)
             ? TextButton.styleFrom(
-                foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                backgroundColor: Color.fromARGB(0, 0, 0, 0),
+                foregroundColor: const Color.fromARGB(255, 139, 139, 139),
+                textStyle: TextStyle(fontSize: 15),
               )
             : TextButton.styleFrom(
-                backgroundColor: const Color.fromARGB(1, 241, 0, 0),
+                backgroundColor: Color.fromARGB(255, 15, 68, 124),
+                foregroundColor: Colors.white,
+                textStyle: TextStyle(fontSize: 16),
               ),
       ),
     );

@@ -33,13 +33,13 @@ class _accountPageState extends State<accountPage> {
         child: Column(
           children: [
             ListTile(
-              title: Text('Saldo'),
+              title: Text(
+                'Saldo',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
               subtitle: Text(
                 real.format(conta.saldo),
-                style: TextStyle(
-                  fontSize: 25,
-                  color: const Color.fromARGB(255, 10, 42, 221),
-                ),
+                style: TextStyle(fontSize: 23),
               ),
               trailing: IconButton(
                 onPressed: updateSaldo,
@@ -80,7 +80,10 @@ class _accountPageState extends State<accountPage> {
     valor.text = conta.saldo.toString();
 
     AlertDialog dialog = AlertDialog(
-      title: Text('Atualizar Saldo'),
+      title: Text(
+        'Atualizar Saldo',
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      ),
       content: Form(
         key: form,
         child: TextFormField(
@@ -98,7 +101,10 @@ class _accountPageState extends State<accountPage> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Cancelar'),
+          child: Text(
+            'Cancelar',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         TextButton(
           onPressed: () {
@@ -107,7 +113,10 @@ class _accountPageState extends State<accountPage> {
               Navigator.pop(context);
             }
           },
-          child: Text('Salvar'),
+          child: Text(
+            'Salvar',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );
